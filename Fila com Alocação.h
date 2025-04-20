@@ -1,7 +1,7 @@
 #ifndef NEW_H
 #define NEW_H
 
-template <class thing>
+template <class Thing>
 
 class Node{
     public:
