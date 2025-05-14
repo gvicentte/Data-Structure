@@ -1,57 +1,54 @@
 #ifndef NEW_H
 #define NEW_H
 
-template <class Thing>
-
-class Node{
-    public:
-    Thing D;
-    Node *next;
-}
-
-class Queue{
-    private:
-        Node *Head;
-        Node *Tail;
-        int n;
-    public:
-        Queue();
-        bool Empty();
-        int size();
-        Thing Front();
-        Thing Back();
-        void Push(Thing T);
-        void Pop();
-        void Clear();
+template <typename T>
+class Node {
+public:
+    T D;
+    Node* next;
 };
 
-Queue::Queue(){
-    Head=Tail=n=0;;
+template <typename T>
+class Queue {
+private:
+    Node<T>* Head;
+    Node<T>* Tail;
+    int n;
+
+public:
+    Queue();
+    bool Emptyq();
+    int Sizeq();
+    void Pushq(T S);
+    void Popq();
+    void Clearq();
+    T front();
+};
+
+template <typename T>
+Queue<T>::Queue() {
+    Head=Tail=nullptr;
+    n=0;
 }
 
-bool Queue::Empty(){
+template <typename T>
+bool Queue<T>::Emptyq(){
     return !Head;
 }
 
-int Queue::size(){
+template <typename T>
+int Queue<T>::Sizeq(){
     return n;
 }
 
-Thing Queue::Front(){
-    return Head->D;
-}
-
-Thing Queue::Back(){
-    return Tail->D;
-}
-
-void Queue::Push(Thing T){
-    Node *P=new Node;
-    P->D=T;
-    P->next=0;
+template <typename T>
+void Queue<T>::Pushq(T S){
+    Node<T>* P=new Node<T>;
+    P->D=S;
+    P->next=nullptr;
     if(!Head){
         Head=P;
-    }
+    } 
     else{
         Tail->next=P;
     }
@@ -59,24 +56,32 @@ void Queue::Push(Thing T){
     n++;
 }
 
-void Queue::Pop(){
-    Node *P=Head;
+template <typename T>
+void Queue<T>::Popq(){
+    Node<T>* P=Head;
     Head=Head->next;
     delete P;
     if(!Head){
-        Tail=Head;
+        Tail=nullptr;
     }
     n--;
 }
 
-void Queue::Clear(){
-    Node *P;
+template <typename T>
+void Queue<T>::Clearq(){
+    Node<T>* P;
     while(Head){
-        P=Head->next;
+        P=Head;
         Head=Head->next;
         delete P;
     }
-    Tail=n=0;
+    Tail=nullptr;
+    n=0;
+}
+
+template <typename T>
+T Queue<T>::front(){
+    return Head->D;
 }
 
 #endif
