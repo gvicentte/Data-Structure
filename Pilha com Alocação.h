@@ -1,63 +1,72 @@
 #ifndef NEW_H
 #define NEW_H
 
-template <class Thing>
-
-class Node{
-    public:
-    Thing D;
-    Node *next;
-}
-
-class Stack{
-    private:
-        Node *top;
-        int n;
-    public:
-        Stack();
-        bool Empty();
-        int size();
-        Thing TOP();
-        void Push(Thing T);
-        void Pop();
-        void Clear();
+template <typename T>
+class Node {
+public:
+    T D;
+    Node* next;
 };
 
-Stack::Stack(){
-    top=n=0;
+template <typename T>
+class Stack {
+private:
+    int n;
+    Node<T>* top;
+
+public:
+    Stack();
+    bool Emptys();
+    int Sizes();
+    void Pushs(T S);
+    void Pops();
+    void Clears();
+    T TOP();
+};
+
+template <typename T>
+Stack<T>::Stack(){
+    top=nullptr;
+    n=0;
 }
 
-bool Stack::Empty(){
+template <typename T>
+bool Stack<T>::Emptys(){
     return !top;
 }
 
-int Stack::size(){
+template <typename T>
+int Stack<T>::Sizes(){
     return n;
 }
 
-Thing Stack::TOP(){
+template <typename T>
+T Stack<T>::TOP(){
     return top->D;
 }
 
-void Stack::Push(Thing T){
-    Node *P=new Node;
-    P->D=T;
+template <typename T>
+void Stack<T>::Pushs(T S){
+    Node<T>* P=new Node<T>;
+    P->D=S;
     P->next=top;
     top=P;
     n++;
 }
 
-void Stack::Pop(){
-    Node *P=top;
+template <typename T>
+void Stack<T>::Pops(){
+    Node<T>* P=top;
     top=top->next;
     delete P;
     n--;
 }
 
-void Stack::Clear(){
-    Node *P;
+template <typename T>
+void Stack<T>::Clears(){
+    Node<T>* P;
     while(top){
-        P=top->next;
+        P=top;
         top=top->next;
         delete P;
     }
