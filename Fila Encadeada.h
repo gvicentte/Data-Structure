@@ -2,115 +2,86 @@
 #define NEW_H
 
 template <typename T>
-class Node{
-    public:
-    Node<T> *next;
-    T G;
+class Node {
+public:
+    T D;
+    Node* next;
 };
 
 template <typename T>
-class List{
-    private:
-    Node<T> *Head;
-    Node<T>** It;
+class Queue {
+private:
+    Node<T>* Head;
+    Node<T>* Tail;
     int n;
-    public:
-    List();
-    bool Empty();
-    int size();
-    T getfront();
-    T getIt();
-    void pushFront(T D);
-    void pushIt(T D);
-    void popFront();
-    void popIt();
-    void Clear();
-    void ItMM();
-    void ItBegin();
+
+public:
+    Queue();
+    bool Emptyq();
+    int Sizeq();
+    void Pushq(T S);
+    void Popq();
+    void Clearq();
+    T front();
 };
 
 template <typename T>
-List<T>::List(){
+Queue<T>::Queue() {
+    Head=Tail=nullptr;
     n=0;
-    Head=nullptr;
-    It=&Head;
 }
 
 template <typename T>
-bool List<T>::Empty(){
+bool Queue<T>::Emptyq(){
     return !Head;
 }
 
 template <typename T>
-int List<T>::size(){
+int Queue<T>::Sizeq(){
     return n;
 }
 
 template <typename T>
-T List<T>::getfront(){
-    return Head->G;
-}
-
-template <typename T>
-T List<T>::getIt(){
-    return (*It)->G;
-}
-
-template <typename T>
-void List<T>::pushFront(T D){
-    Node<T> *P=new Node<T>;
-    P->G=D;
-    P->next=Head;
-    Head=P;
+void Queue<T>::Pushq(T S){
+    Node<T>* P=new Node<T>;
+    P->D=S;
+    P->next=nullptr;
+    if(!Head){
+        Head=P;
+    } 
+    else{
+        Tail->next=P;
+    }
+    Tail=P;
     n++;
 }
 
 template <typename T>
-void List<T>::pushIt(T D){
-    Node<T> *P=new Node<T>;
-    P->G=D;
-    P->next=*It;
-    *It=P;
-    n++;
-}
-
-template <typename T>
-void List<T>::popFront(){
-    Node<T> *P=Head;
+void Queue<T>::Popq(){
+    Node<T>* P=Head;
     Head=Head->next;
     delete P;
+    if(!Head){
+        Tail=nullptr;
+    }
     n--;
 }
 
 template <typename T>
-void List<T>::popIt(){
-    if(*It){
-        Node<T> *P=*It;
-        *It=P->next;
-        n--;   
-    }
-}
-
-template <typename T>
-void List<T>::Clear(){
-    Node<T> *P;
+void Queue<T>::Clearq(){
+    Node<T>* P;
     while(Head){
         P=Head;
         Head=Head->next;
         delete P;
     }
-    It=&Head;
+    Tail=nullptr;
     n=0;
 }
 
 template <typename T>
-void List<T>::ItMM(){
-    It=&((*It)->next);
-}
-
-template <typename T>
-void List<T>::ItBegin(){
-    It=&Head;
+T Queue<T>::front(){
+    return Head->D;
 }
 
 #endif
