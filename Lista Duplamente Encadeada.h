@@ -153,10 +153,10 @@ void ListDE<T>::PopIt(){
     It=It->next;
     delete P;
     if(!Head){
-        Head=P;
+        Head=It;
     }
     if(!Tail){
-        Tail=P;
+        Tail=It;
     }
     n--;
 }
